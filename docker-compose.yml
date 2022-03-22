@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  php-grpc:
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+        mode: host
+      - target: 2114
+        published: 2114
+        protocol: tcp
+        mode: host
+      - target: 8000
+        published: 8000
+        protocol: tcp
+        mode: host
+    networks:
+      - poc_grpc
+    extra_hosts:
+      - 'poc.grpc.server:127.0.0.1'
+      - 'poc.grpc.client-a:127.0.0.1'
+    volumes:
+      - './:/var/www/html'
+networks:
+  poc_grpc: null
