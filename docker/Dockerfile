@@ -25,7 +25,6 @@ RUN a2dissite 000-default.conf
 RUN a2dissite default-ssl.conf
 
 RUN a2ensite vhost-grpc-server.conf
-RUN a2ensite vhost-grpc-client-a.conf
 
 WORKDIR /tmp
 
