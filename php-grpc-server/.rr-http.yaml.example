@@ -1,0 +1,17 @@
+version: "2.8"
+
+server:
+  command: "php ./vendor/bin/roadrunner-worker"
+
+  env:
+    - APP_BASE_PATH: "./"
+
+http:
+  address: 0.0.0.0:8000
+  pool:
+    num_workers: 4
+    max_jobs: 500
+    supervisor:
+      exec_ttl: 30s
+  static:
+    dir: public

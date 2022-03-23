@@ -3,11 +3,6 @@ version: "2.8"
 server:
   command: "php worker.php"
 
-http:
-  address: 0.0.0.0:8000
-  pool:
-    num_workers: 1
-
 grpc:
   listen: tcp://0.0.0.0:2114
   proto:
@@ -15,4 +10,7 @@ grpc:
     - "protos/score/score.proto"
 
 logs:
+  mode: production
   level: debug
+  output: stdout
+  encoding: json
