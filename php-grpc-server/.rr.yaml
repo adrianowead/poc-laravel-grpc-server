@@ -1,0 +1,21 @@
+# RR configuration version
+version: "2.7"
+
+server:
+  command: "php worker.php"
+
+http:
+  address: 0.0.0.0:8000
+  pool:
+    num_workers: 1
+
+grpc:
+  listen: tcp://0.0.0.0:2114
+  proto:
+    - "protos/identity/auth.proto"
+  # tls:
+  #   key:  server.key
+  #   cert: server.cert
+
+logs:
+  level: debug

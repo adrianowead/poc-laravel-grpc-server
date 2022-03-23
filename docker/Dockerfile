@@ -27,6 +27,15 @@ RUN a2dissite default-ssl.conf
 RUN a2ensite vhost-grpc-server.conf
 RUN a2ensite vhost-grpc-client-a.conf
 
+WORKDIR /tmp
+
+RUN wget https://github.com/spiral/roadrunner-binary/releases/download/v2.7.0/protoc-gen-php-grpc-2.7.0-linux-amd64.tar.gz && \
+    tar -xvf protoc-gen-php-grpc-2.7.0-linux-amd64.tar.gz && \
+    cp protoc-gen-php-grpc-2.7.0-linux-amd64/protoc-gen-php-grpc /usr/bin/ && \
+    chmod +x /usr/bin/protoc-gen-php-grpc
+
+WORKDIR /var/www/html
+
 # abrindo portas
 EXPOSE 80
 EXPOSE 2114

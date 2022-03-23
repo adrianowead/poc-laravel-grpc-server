@@ -1,9 +1,33 @@
 version: '3.3'
 services:
+  mysql:
+    image: mysql
+    restart: always
+    command: '--default-authentication-plugin=mysql_native_password'
+    environment:
+      - MYSQL_DATABASE=meu_db
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_TCP_PORT=3308
+    ports:
+      - target: 3308
+        published: 3308
+        protocol: tcp
+        mode: host
+    networks:
+      - poc_grpc
+    volumes:
+      - 'mysql_data_volume:/var/lib/mysql'
+      - './docker/mysql/startup.sql:/docker-entrypoint-initdb.d/startup.sql'
   php-grpc:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
+    depends_on:
+      - mysql
+    links:
+      - mysql
+    env_file: 
+      - php-grpc-server/.env
     ports:
       - target: 80
         published: 80
@@ -26,3 +50,5 @@ services:
       - './:/var/www/html'
 networks:
   poc_grpc: null
+volumes:
+  mysql_data_volume: null
