@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package protobuf.score;
+
+option php_metadata_namespace = "Protobuf\\Score\\Metadata";
+
+service ScoreService {
+    rpc Register (RegisterRequest) returns (RegisterResponse) {}
+    rpc ByUserId (ByUserIdRequest) returns (ByUserIdResponse) {}
+}
+
+message RegisterRequest {
+    int32 user_id = 1;
+    float score = 2;
+}
+
+message RegisterResponse {}
+
+message ByUserIdRequest {
+    int32 user_id = 1;
+}
+
+message ByUserIdResponse {
+    float score = 1;
+}

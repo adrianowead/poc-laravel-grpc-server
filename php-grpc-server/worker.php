@@ -1,6 +1,6 @@
 <?php
 
-use App\Grpc\Services\Identity\AuthService;
+use App\Grpc\Services;
 use Spiral\Goridge;
 use Spiral\RoadRunner;
 
@@ -22,7 +22,8 @@ $app->singleton(
 
 $kernel = $app->make(App\Grpc\Contracts\Kernel::class);
 
-$kernel->registerService(AuthService::class);
+$kernel->registerService(Services\Identity\AuthService::class);
+$kernel->registerService(Services\Score\ScoreService::class);
 
 $w = new RoadRunner\Worker(new Goridge\StreamRelay(STDIN, STDOUT));
 
